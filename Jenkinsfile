@@ -4,7 +4,6 @@ pipeline {
         jdk 'Java17'
         maven 'Maven3'
     }
-	
     stages{
         stage("Cleanup Workspace"){
                 steps {
@@ -14,7 +13,7 @@ pipeline {
 
         stage("Checkout from SCM"){
                 steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/Amman-1209/registry-app.git'
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/Amman-1209/registry-app'
                 }
         }
 
@@ -32,13 +31,13 @@ pipeline {
        }
 
        stage("SonarQube Analysis"){
-	     steps{
-		     script {
+           steps {
+	           script {
 		        withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') { 
                         sh "mvn sonar:sonar"
-		}
-			     
-	  }
+		        }
+	           }	
+           }
        }
-   }
+    }
 }
